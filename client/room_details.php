@@ -21,10 +21,148 @@ $client_id = $_SESSION['client_id'];
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php echo htmlspecialchars($settings['site_name']); ?> | Room Details</title>
   <?php if (!empty($settings['site_favicon'])): ?>
-      <link rel="icon" type="image/png" href="../admin/dist/img/logos/<?php echo htmlspecialchars($settings['site_favicon']); ?>">
+    <link rel="icon" type="image/png" href="../admin/dist/img/logos/<?php echo htmlspecialchars($settings['site_favicon']); ?>">
   <?php endif; ?>
   <!-- Import Links -->
   <?php require('./inc/links.php'); ?>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <style>
+    :root {
+      --primary-color: <?php echo $settings['site_primary_color']; ?>;
+      --hover-color: <?php echo $settings['site_hover_color']; ?>;
+      --bg-color: <?php echo $settings['site_bg_color']; ?>;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Section Headers */
+    .miniTitle {
+      color: var(--primary-color);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .bigTitle {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+
+    /* Room Details Styling */
+    .roomContainer {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      height: 500px;
+      margin-top: 50px;
+    }
+
+    .roomContainer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .roomContainer:hover img {
+      transform: scale(1.05);
+    }
+
+    .contentPara {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    /* Room Cards */
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img-top {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .cardRoomTitle {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #333;
+      margin: 1rem 0;
+    }
+
+    .cardRoomDescription {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    /* Buttons */
+    .btnAddCategory {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btnAddCategory:hover {
+      background-color: var(--hover-color);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      color: white;
+    }
+
+    /* Price Styling */
+    .newBigTitle {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .bigTitle {
+        font-size: 2rem;
+      }
+
+      .roomContainer {
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .bigTitle {
+        font-size: 1.8rem;
+      }
+
+      .contentPara {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -44,7 +182,7 @@ $client_id = $_SESSION['client_id'];
           <div class="col-lg-12 m-auto d-flex justify-content-center mt-5">
             <div class="col-4 mt-5">
               <div class="roomContainer">
-                <img src="../admin/dist/img/<?php echo htmlspecialchars($row1->room_picture); ?>" style="object-fit: cover; width: 100%; height: 100%;">
+                <img src="../admin/dist/img/<?php echo htmlspecialchars($row1->room_picture); ?>" alt="<?php echo htmlspecialchars($row1->room_name); ?>">
               </div>
             </div>
             <div class="col-4 p-4 mt-5">
@@ -99,7 +237,7 @@ $client_id = $_SESSION['client_id'];
                 while ($row1 = $res->fetch_object()) {
                 ?>
                   <div class="card mb-4" style="width: 18rem;">
-                    <img src="../admin/dist/img/<?php echo htmlspecialchars($row1->room_picture); ?>" class="card-img-top" style="height: 200px; object-fit:cover;">
+                    <img src="../admin/dist/img/<?php echo htmlspecialchars($row1->room_picture); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($row1->room_name); ?>">
                     <div class="card-body">
                       <p class="miniTitle"><?php echo htmlspecialchars($row1->room_category); ?></p>
                       <h5 class="cardRoomTitle"><?php echo htmlspecialchars($row1->room_name); ?></h5>
@@ -122,4 +260,5 @@ $client_id = $_SESSION['client_id'];
       </div>
     </div>
 </body>
+
 </html>
